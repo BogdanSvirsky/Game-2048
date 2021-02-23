@@ -35,10 +35,10 @@ class Board:
         self.group.draw(self.screen)
 
     def move(self, direction):
-        if direction == 'up':
+        if direction == pygame.K_UP:
             for y in range(self.height - 1):
                 for x in range(self.width):
-                    if self.board[y + 1][x]:
+                    if self.board[y + 1][x] == 0:
                         self.board[y + 1][x] = self.board[y][x]
                         self.board[y][x] = 0
                         print(self.board)

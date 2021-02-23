@@ -14,8 +14,8 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             print(event.pos)
-        if event.type == pygame.KEYUP:
-            board.move('up')
+        if event.type == pygame.KEYDOWN:
+            board.move(event.type)
     screen.fill((239, 220, 214))
     board.render()
     pygame.display.flip()
