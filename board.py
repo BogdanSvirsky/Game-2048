@@ -34,11 +34,20 @@ class Board:
                                             self.cell_size * 4, self.cell_size * 4), 7)
         self.group.draw(self.screen)
 
-    def move(self, direction):
-        if direction == pygame.K_UP:
+    def move(self, buttons):
+        if buttons[pygame.K_DOWN]:
             for y in range(self.height - 1):
-                for x in range(self.width):
-                    if self.board[y + 1][x] == 0:
-                        self.board[y + 1][x] = self.board[y][x]
-                        self.board[y][x] = 0
-                        print(self.board)
+                for x in range(self.width - 1):
+                    print(y, x, self.board[y][x])
+                    if self.board[y][x]:
+                        if self.board[y + 1][x] == 0:
+                            self.board[y + 1][x] = self.board[y][x]
+                            self.board[y][x] = 0
+        elif buttons[pygame.K_UP]:
+            for y in range(self.height - 1):
+                for x in range(self.width - 1):
+                    print(y, x, self.board[y][x])
+                    if self.board[y][x]:
+                        if self.board[y + 1][x] == 0:
+                            self.board[y + 1][x] = self.board[y][x]
+                            self.board[y][x] = 0
