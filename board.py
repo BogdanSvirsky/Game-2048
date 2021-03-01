@@ -44,10 +44,10 @@ class Board:
                             self.board[y + 1][x] = self.board[y][x]
                             self.board[y][x] = 0
         elif buttons[pygame.K_UP]:
-            for y in range(self.height - 1):
-                for x in range(self.width - 1):
+            for y in range(self.height):
+                for x in range(0, self.width):
                     print(y, x, self.board[y][x])
                     if self.board[y][x]:
-                        if self.board[y + 1][x] == 0:
-                            self.board[y + 1][x] = self.board[y][x]
+                        if self.board[y - 1][x] == 0:
+                            self.board[y - 1][x] = self.board[y][x]
                             self.board[y][x] = 0
