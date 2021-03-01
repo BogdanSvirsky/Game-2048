@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 from board import Board
+from database import Database
 
 
 def draw_screen(screnn):
@@ -27,16 +28,19 @@ screen = pygame.display.set_mode((400, 600))
 manager = pygame_gui.UIManager((800, 600))
 board = Board(4, 4, screen, all_sprites)
 board.set_view(60, 250, 70)
+database = Database('base.db')
 save_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(200, 30, 170, 50),
                                            text="Сохранить", manager=manager)
 open_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(200, 90, 170, 50),
                                            text="Загрузить", manager=manager)
 help_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(360, 550, 30, 30),
                                            text="?", manager=manager)
+pygame.display.set_caption('Игра 2048')
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            database.close()
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             print(event.pos)
@@ -45,7 +49,9 @@ while running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == save_button:
-                    print('Hello World!')
+                    database.save('admin', 'admin', board.board)
+                if event.ui_element == open_button:
+                    board.board = database.open('admin', 'admin')
         manager.process_events(event)
     manager.update(time_delta=1)
     draw_screen(screen)
